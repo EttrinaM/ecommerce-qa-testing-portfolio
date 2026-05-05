@@ -30,5 +30,10 @@ This project demonstrates end-to-end manual QA testing of an e-commerce applicat
 - api-testing
 - sql-validation
 
+## Test Execution Summary
+
+All core user flows including login, cart, and checkout were tested and passed successfully.
+
+A usability-related defect was identified in checkout field validation and documented in the bug reports section.
 ## Goal
 To simulate real-world QA testing experience and demonstrate testing workflow.
