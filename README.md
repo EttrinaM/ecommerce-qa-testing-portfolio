@@ -55,3 +55,7 @@ To simulate real-world QA testing experience and demonstrate testing workflow.
 ## API Testing
 
 Postman collection included in the `api-testing` folder demonstrating API validation, request execution, and response verification.
+
+## SQL Data Validation
+
+SQL queries are included to validate sample e-commerce order data, identify missing order totals, locate invalid zero-dollar orders, and detect orders linked to missing customer records.
