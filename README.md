@@ -51,3 +51,7 @@ A usability-related defect was identified in checkout field validation and docum
 ![Order Confirmation](screenshots/order-confirmation.jpeg)
 ## Goal
 To simulate real-world QA testing experience and demonstrate testing workflow.
+
+## API Testing
+
+Postman collection included in the `api-testing` folder demonstrating API validation, request execution, and response verification.
