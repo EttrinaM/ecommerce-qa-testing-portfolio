@@ -1,0 +1,1207 @@
+{
+  "info": {
+    "_postman_id": "d6699d9c-fec4-4b46-bd68-bc9ae44bc2c0",
+    "name": "Diversociete",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "45460275"
+  },
+  "item": [
+    {
+      "name": "Inventory API",
+      "item": [
+        {
+          "name": "Retrieve all inventory",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.squarespace.com/1.0/commerce/inventory",
+              "protocol": "https",
+              "host": [
+                "api",
+                "squarespace",
+                "com"
+              ],
+              "path": [
+                "1.0",
+                "commerce",
+                "inventory"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Retrieve specific inventory",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.squarespace.com/1.0/commerce/inventory/4730901c-2b6d-4f8a-87c2-75d79a8822d6",
+              "protocol": "https",
+              "host": [
+                "api",
+                "squarespace",
+                "com"
+              ],
+              "path": [
+                "1.0",
+                "commerce",
+                "inventory",
+                "4730901c-2b6d-4f8a-87c2-75d79a8822d6"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Adjust stock quantities",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Idempotency-Key",
+                "value": "d76859d6-139b-4fa5-83f2-5f5c60539bfb",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"incrementOperations\": [{\r\n      \"variantId\": \"319a4397-d744-4edb-9ad9-675326519e06\",\r\n      \"quantity\": 10\r\n    }],\r\n    \"decrementOperations\": [{\r\n      \"variantId\": \"8e051327-b37b-417c-a1a6-f324983ae226\",\r\n      \"quantity\": 1\r\n    }],\r\n    \"setFiniteOperations\": [{\r\n      \"variantId\": \"d76859d6-139b-4fa5-83f2-5f5c60539bfb\",\r\n      \"quantity\": 40\r\n    }],\r\n    \"setUnlimitedOperations\": [\r\n      \"85218f8f-2530-45b1-a976-39f8e7380212\",\r\n      \"4730901c-2b6d-4f8a-87c2-75d79a8822d6\"\r\n    ]\r\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.squarespace.com/1.0/commerce/inventory/adjustments",
+              "protocol": "https",
+              "host": [
+                "api",
+                "squarespace",
+                "com"
+              ],
+              "path": [
+                "1.0",
+                "commerce",
+                "inventory",
+                "adjustments"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Orders API",
+      "item": [
+        {
+          "name": "Create an order",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Idempotency-Key",
+                "value": "319a4397-d744-4edb-9ad9-675326519e06",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"channelName\": \"Non-Squarespace Store\",\r\n  \"externalOrderReference\": \"ORDER1234567\",\r\n \"customerEmail\": \"john@example.com\",\r\n  \"billingAddress\": {\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Doe\",\r\n    \"address1\": \"8 Clarkson Street\",\r\n    \"address2\": \"Unit 2F\",\r\n    \"city\": \"New York\",\r\n    \"state\": \"NY\",\r\n    \"countryCode\": \"US\",\r\n    \"postalCode\": \"10014\",\r\n    \"phone\": \"999-999-9999\"\r\n  },\r\n  \"shippingAddress\": {\r\n    \"firstName\": \"Jane\",\r\n    \"lastName\": \"Smith\",\r\n   \"address1\": \"225 Varick Street\",\r\n    \"address2\": \"12th Floor\",\r\n    \"city\": \"New York\",\r\n    \"state\": \"NY\",\r\n    \"countryCode\": \"US\",\r\n    \"postalCode\": \"10014\",\r\n    \"phone\": \"999-999-9999\"\r\n  },\r\n  \"inventoryBehavior\": \"SKIP\",\r\n  \"lineItems\": [\r\n    {\r\n      \"lineItemType\": \"PHYSICAL_PRODUCT\",\r\n      \"variantId\": \"AF705384-7641-4E8E-9F0A-C7E43BF88AB\",\r\n      \"quantity\": 99,\r\n      \"unitPricePaid\": {\r\n        \"currency\": \"USD\",\r\n        \"value\": \"12.99\"\r\n      },\r\n      \"nonSaleUnitPrice\": {\r\n        \"currency\": \"USD\",\r\n        \"value\": \"15.99\"\r\n      }\r\n    },\r\n    {\r\n      \"lineItemType\": \"CUSTOM\",\r\n      \"title\": \"Gift Wrapping\",\r\n      \"quantity\": 1,\r\n      \"unitPricePaid\": {\r\n        \"currency\": \"USD\",\r\n        \"value\": \"4.00\"\r\n      },\r\n      \"nonSaleUnitPrice\": {\r\n        \"currency\": \"USD\",\r\n        \"value\": \"4.00\"\r\n      }\r\n    }\r\n  ],\r\n \"shippingLines\": [\r\n    {\r\n  \r\n      \"method\": \"Flat Rate\",\r\n\r\n      \"amount\": {\r\n        \"currency\": \"USD\",\r\n        \"value\": \"5.99\"\r\n      }\r\n    }\r\n  ],\r\n  \"discountLines\": [\r\n    {\r\n     \r\n      \"promoCode\": \"SPRING-20\",\r\n      \"name\": \"Spring Discount 20% Off\",\r\n      \"amount\": {\r\n        \"currency\": \"USD\",\r\n        \"value\": \"257.20\"\r\n      }\r\n    }\r\n  ],\r\n  \"priceTaxInterpretation\": \"EXCLUSIVE\",\r\n    \"subtotal\": {\r\n    \"currency\": \"USD\",\r\n    \"value\": \"1290.01\"\r\n  },\r\n  \"shippingTotal\": {\r\n    \"currency\": \"USD\",\r\n    \"value\": \"5.99\"\r\n  },\r\n  \"discountTotal\": {\r\n    \"currency\": \"USD\",\r\n    \"value\": \"257.20\"\r\n  },\r\n  \"taxTotal\": {\r\n    \"currency\": \"USD\",\r\n    \"value\": \"77.40\"\r\n  },\r\n  \"grandTotal\": {\r\n    \"currency\": \"USD\",\r\n    \"value\": \"1116.20\"\r\n    },\r\n  \"fulfillmentStatus\": \"FULFILLED\",\r\n  \"shopperFulfillmentNotificationBehavior\": \"SEND\",\r\n  \"fulfilledOn\": \"2017-01-29T22:19:26.980Z\",\r\n  \"fulfillments\": [\r\n    {\r\n      \"shipDate\": \"2017-01-29T22:19:26.980Z\",\r\n      \"carrierName\": \"FedEx\",\r\n      \"service\": \"Same-Day Delivery\",\r\n      \"trackingNumber\": \"ABC 123\",\r\n      \"trackingUrl\": \"https://fedex.com/track?q=ABC%20123\"\r\n    }\r\n  ],\r\n  \"createdOn\": \"2017-01-25T17:13:26.205Z\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.squarespace.com/1.0/commerce/orders",
+              "protocol": "https",
+              "host": [
+                "api",
+                "squarespace",
+                "com"
+              ],
+              "path": [
+                "1.0",
+                "commerce",
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Retrieve all orders",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.squarespace.com/1.0/commerce/orders",
+              "protocol": "https",
+              "host": [
+                "api",
+                "squarespace",
+                "com"
+              ],
+              "path": [
+                "1.0",
+                "commerce",
+                "orders"
+              ],
+              "query": [
+                {
+                  "key": "modifiedAfter",
+                  "value": "2022-12-29T19:48:17.931Z",
+                  "disabled": true
+                },
+                {
+                  "key": "modifiedBefore",
+                  "value": "2022-12-29T19:48:19.680Z",
+                  "disabled": true
+                },
+                {
+                  "key": "cursor",
+                  "value": "{c}",
+                  "disabled": true
+                },
+                {
+                  "key": "fulfillmentStatus",
+                  "value": "PENDING",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Retrieving specific information from all orders",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "const orders = response.result || [];\r",
+                  "\r",
+                  "let searchEmail = '';\r",
+                  "let searchId = '';\r",
+                  "let searchOrderNumber = '';\r",
+                  "\r",
+                  "try {\r",
+                  "  const url = new URL(pm.request.url.toString());\r",
+                  "  searchEmail = decodeURIComponent(url.searchParams.get('customerEmail') || '').toLowerCase().trim();\r",
+                  "  searchId = decodeURIComponent(url.searchParams.get('id') || '').trim();\r",
+                  "  searchOrderNumber = decodeURIComponent(url.searchParams.get('orderNumber') || '').trim();\r",
+                  "} catch (e) {\r",
+                  "  console.log(\"❌ URL parsing error:\", e);\r",
+                  "}\r",
+                  "\r",
+                  "console.log(\"🔍 Searching by:\", {\r",
+                  "  email: searchEmail,\r",
+                  "  id: searchId,\r",
+                  "  orderNumber: searchOrderNumber\r",
+                  "});\r",
+                  "\r",
+                  "// Find the matching order\r",
+                  "const matched = orders.find(order => {\r",
+                  "  const emailMatch = searchEmail && order.customerEmail?.toLowerCase().trim() === searchEmail;\r",
+                  "  const idMatch = searchId && order.id === searchId;\r",
+                  "  const orderMatch = searchOrderNumber && order.orderNumber === searchOrderNumber;\r",
+                  "  return emailMatch || idMatch || orderMatch;\r",
+                  "});\r",
+                  "\r",
+                  "if (matched) {\r",
+                  "  console.log(\"Matched Order Found:\", matched);\r",
+                  "  pm.collectionVariables.set(\"matchedOrderId\", matched.id);\r",
+                  "  pm.collectionVariables.set(\"matchedOrderNumber\", matched.orderNumber);\r",
+                  "  pm.collectionVariables.set(\"matchedOrderEmail\", matched.customerEmail);\r",
+                  "  pm.collectionVariables.set(\"matchedOrder\", JSON.stringify(matched, null, 2));\r",
+                  "} else {\r",
+                  "  console.log(\"❌ No matching order found.\");\r",
+                  "  [\"matchedOrderId\", \"matchedOrderNumber\", \"matchedOrderEmail\", \"matchedOrder\"]\r",
+                  "    .forEach(key => pm.collectionVariables.unset(key));\r",
+                  "}\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.squarespace.com/1.0/commerce/orders",
+              "protocol": "https",
+              "host": [
+                "api",
+                "squarespace",
+                "com"
+              ],
+              "path": [
+                "1.0",
+                "commerce",
+                "orders"
+              ],
+              "query": [
+                {
+                  "key": "customerEmail",
+                  "value": "{{customerEmail}}",
+                  "disabled": true
+                },
+                {
+                  "key": "orderNumber",
+                  "value": "{{orderNumber}}",
+                  "disabled": true
+                },
+                {
+                  "key": "id",
+                  "value": "{{id}}",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Retrieve a specific order by order id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.squarespace.com/1.0/commerce/orders/{{matchedOrderId}}",
+              "protocol": "https",
+              "host": [
+                "api",
+                "squarespace",
+                "com"
+              ],
+              "path": [
+                "1.0",
+                "commerce",
+                "orders",
+                "{{matchedOrderId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Products API",
+      "item": [
+        {
+          "name": "Retrieve all Store Pages",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.squarespace.com/1.0/commerce/store_pages",
+              "protocol": "https",
+              "host": [
+                "api",
+                "squarespace",
+                "com"
+              ],
+              "path": [
+                "1.0",
+                "commerce",
+                "store_pages"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create a product",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"type\": \"PHYSICAL\",\r\n  \"storePageId\": \"6338ee529239c073496ce549\",\r\n  \"name\": \"Artisanal Steak Dry Rub\",\r\n  \"description\": \"<p>This can be a few words or even a few <i>paragraphs</i>.</p>\",\r\n  \"urlSlug\": \"artisanal-steak-dry-r5b\",\r\n  \"tags\": [\r\n    \"artisanal\",\r\n    \"steak\"\r\n  ],\r\n  \"isVisible\": true,\r\n  \"variantAttributes\": [\r\n    \"Flavor\"\r\n  ],\r\n  \"variants\": [\r\n    {\r\n      \"sku\": \"SQ1121774\",\r\n      \"pricing\": {\r\n        \"basePrice\": {\r\n          \"currency\": \"USD\",\r\n          \"value\": \"12.95\"\r\n        },\r\n        \"onSale\": false,\r\n        \"salePrice\": {\r\n          \"currency\": \"USD\",\r\n          \"value\": \"0.00\"\r\n        }\r\n      },\r\n      \"stock\": {\r\n        \"quantity\": 10,\r\n        \"unlimited\": false\r\n      },\r\n      \"attributes\": {\r\n        \"Flavor\": \"Habanero\"\r\n      },\r\n      \"shippingMeasurements\": {\r\n        \"weight\": {\r\n          \"unit\": \"POUND\",\r\n          \"value\": 2.0\r\n        },\r\n        \"dimensions\": {\r\n          \"unit\": \"INCH\",\r\n          \"length\": 7.0,\r\n          \"width\": 5.0,\r\n          \"height\": 5.0\r\n        }\r\n      }\r\n    }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.squarespace.com/1.0/commerce/products",
+              "protocol": "https",
+              "host": [
+                "api",
+                "squarespace",
+                "com"
+              ],
+              "path": [
+                "1.0",
+                "commerce",
+                "products"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create a product variant",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"sku\": \"SQ1121775\",\r\n  \"pricing\": {\r\n    \"basePrice\": {\r\n      \"currency\": \"USD\",\r\n      \"value\": \"10.95\"\r\n    },\r\n    \"onSale\": true,\r\n    \"salePrice\": {\r\n      \"currency\": \"USD\",\r\n      \"value\": \"7.99\"\r\n    }\r\n  },\r\n  \"stock\": {\r\n    \"quantity\": 10,\r\n    \"unlimited\": false\r\n  },\r\n  \"attributes\": {\r\n    \"Flavor\": \"BBQ\"\r\n  },\r\n  \"shippingMeasurements\": {\r\n    \"weight\": {\r\n      \"unit\": \"POUND\",\r\n      \"value\": 1.0\r\n    },\r\n    \"dimensions\": {\r\n      \"unit\": \"INCH\",\r\n      \"length\": 3.0,\r\n      \"width\": 8.0,\r\n      \"height\": 11.0\r\n    }\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.squarespace.com/1.0/commerce/products/63baff4b0dc12d5b59f0fd0b/variants",
+              "protocol": "https",
+              "host": [
+                "api",
+                "squarespace",
+                "com"
+              ],
+              "path": [
+                "1.0",
+                "commerce",
+                "products",
+                "63baff4b0dc12d5b59f0fd0b",
+                "variants"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upload a product image",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "contentType": " multipart/form-data",
+                  "type": "file",
+                  "src": "auHfYdPs7/product.jpg"
+                },
+                {
+                  "key": "name",
+                  "value": "test image",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://api.squarespace.com/1.0/commerce/products/63b9bb5d52214e4fafdf0fc9/images",
+              "protocol": "https",
+              "host": [
+                "api",
+                "squarespace",
+                "com"
+              ],
+              "path": [
+                "1.0",
+                "commerce",
+                "products",
+                "63b9bb5d52214e4fafdf0fc9",
+                "images"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Retrieve all products",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.squarespace.com/1.0/commerce/products?modifiedAfter=2021-08-05T21:02:28.557Z&modifiedBefore=2022-06-06T16:45:53.842Z",
+              "protocol": "https",
+              "host": [
+                "api",
+                "squarespace",
+                "com"
+              ],
+              "path": [
+                "1.0",
+                "commerce",
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "modifiedAfter",
+                  "value": "2021-08-05T21:02:28.557Z"
+                },
+                {
+                  "key": "modifiedBefore",
+                  "value": "2022-06-06T16:45:53.842Z"
+                },
+                {
+                  "key": "cursor",
+                  "value": "{c}",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Retrieve specific products",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.squarespace.com/1.0/commerce/products/6699512c705c27365bcf271b",
+              "protocol": "https",
+              "host": [
+                "api",
+                "squarespace",
+                "com"
+              ],
+              "path": [
+                "1.0",
+                "commerce",
+                "products",
+                "6699512c705c27365bcf271b"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update a product",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Artisanal Steak Dry Rub\",\r\n  \"description\": \"This can be a few words or even a few paragraphs.\",\r\n  \"urlSlug\": \"artisanal-steak-dry-j5k\",\r\n  \"tags\": [\"artisanal\", \"steak\"],\r\n  \"isVisible\": true,\r\n  \"variantAttributes\": [\"Flavor\"],\r\n  \"seoOptions\": {\r\n      \"title\": \"Artisanal Cooking\",\r\n    \"description\": \"A one-stop shop for artisanal cooking tips and products.\"\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.squarespace.com/1.0/commerce/products/6338ee529239c073496ce596",
+              "protocol": "https",
+              "host": [
+                "api",
+                "squarespace",
+                "com"
+              ],
+              "path": [
+                "1.0",
+                "commerce",
+                "products",
+                "6338ee529239c073496ce596"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update a product image",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"altText\": \"Steak\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.squarespace.com/1.0/commerce/products/63b9bb5d52214e4fafdf0fc9/images/63b9c87b220cb216b353b788",
+              "protocol": "https",
+              "host": [
+                "api",
+                "squarespace",
+                "com"
+              ],
+              "path": [
+                "1.0",
+                "commerce",
+                "products",
+                "63b9bb5d52214e4fafdf0fc9",
+                "images",
+                "63b9c87b220cb216b353b788"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete a product",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://api.squarespace.com/1.0/commerce/products/63b9bb5d52214e4fafdf0fc9",
+              "protocol": "https",
+              "host": [
+                "api",
+                "squarespace",
+                "com"
+              ],
+              "path": [
+                "1.0",
+                "commerce",
+                "products",
+                "63b9bb5d52214e4fafdf0fc9"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete a product variant",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://api.squarespace.com/1.0/commerce/products/63b9bb5d52214e4fafdf0fc9/variants/37c5147e-32a4-4095-9440-418dcc09c252",
+              "protocol": "https",
+              "host": [
+                "api",
+                "squarespace",
+                "com"
+              ],
+              "path": [
+                "1.0",
+                "commerce",
+                "products",
+                "63b9bb5d52214e4fafdf0fc9",
+                "variants",
+                "37c5147e-32a4-4095-9440-418dcc09c252"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete a product image",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://api.squarespace.com/1.0/commerce/products/63b9d0ed52214e4fafdf1f6d/images/63b9c87b220cb216b353b788",
+              "protocol": "https",
+              "host": [
+                "api",
+                "squarespace",
+                "com"
+              ],
+              "path": [
+                "1.0",
+                "commerce",
+                "products",
+                "63b9d0ed52214e4fafdf1f6d",
+                "images",
+                "63b9c87b220cb216b353b788"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Profiles API",
+      "item": [
+        {
+          "name": "Retrieve all profiles",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "const profiles = response.profiles || [];\r",
+                  "\r",
+                  "const requestUrl = pm.request.url.toString();\r",
+                  "let emailParam = '';\r",
+                  "try {\r",
+                  "  const url = new URL(requestUrl);\r",
+                  "  emailParam = url.searchParams.get('customerEmail') || '';\r",
+                  "  emailParam = decodeURIComponent(emailParam).toLowerCase().trim();\r",
+                  "  console.log(\"Searching for email:\", emailParam);\r",
+                  "} catch (e) {\r",
+                  "  console.log(\"URL parsing error:\", e);\r",
+                  "}\r",
+                  "\r",
+                  "let matched = null;\r",
+                  "\r",
+                  "for (let p of profiles) {\r",
+                  "  if (!p.email) continue;\r",
+                  "  const profileEmail = p.email.toLowerCase().trim();\r",
+                  "  if (profileEmail === emailParam) {\r",
+                  "    matched = p;\r",
+                  "    break;\r",
+                  "  }\r",
+                  "}\r",
+                  "\r",
+                  "if (matched) {\r",
+                  "  console.log(\"Matched profile found:\", matched);\r",
+                  "  // Set collection variables\r",
+                  "  pm.collectionVariables.set(\"matchedProfileId\", matched.id);\r",
+                  "  pm.collectionVariables.set(\"matchedProfileEmail\", matched.email);\r",
+                  "  // Also store full profile JSON if needed\r",
+                  "  pm.collectionVariables.set(\"matchedProfile\", JSON.stringify(matched, null, 2));\r",
+                  "} else {\r",
+                  "  console.log(\"No profile matched in this page.\");\r",
+                  "  pm.collectionVariables.unset(\"matchedProfileId\");\r",
+                  "  pm.collectionVariables.unset(\"matchedProfileEmail\");\r",
+                  "  pm.collectionVariables.unset(\"matchedProfile\");\r",
+                  "}\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.squarespace.com/1.0/profiles/?customerEmail={{customerEmail}}",
+              "protocol": "https",
+              "host": [
+                "api",
+                "squarespace",
+                "com"
+              ],
+              "path": [
+                "1.0",
+                "profiles",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "filter",
+                  "value": "isCustomer",
+                  "disabled": true
+                },
+                {
+                  "key": "sortDirection",
+                  "value": "dsc",
+                  "disabled": true
+                },
+                {
+                  "key": "sortField",
+                  "value": "email",
+                  "disabled": true
+                },
+                {
+                  "key": "customerEmail",
+                  "value": "{{customerEmail}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Retrieve specific profiles",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.squarespace.com/1.0/profiles/{{matchedProfileId}}",
+              "protocol": "https",
+              "host": [
+                "api",
+                "squarespace",
+                "com"
+              ],
+              "path": [
+                "1.0",
+                "profiles",
+                "{{matchedProfileId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Transactions API",
+      "item": [
+        {
+          "name": "Retrieve all transactions",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.squarespace.com/1.0/commerce/transactions",
+              "protocol": "https",
+              "host": [
+                "api",
+                "squarespace",
+                "com"
+              ],
+              "path": [
+                "1.0",
+                "commerce",
+                "transactions"
+              ],
+              "query": [
+                {
+                  "key": "modifiedAfter",
+                  "value": "2019-11-18T21:23:02.870Z",
+                  "disabled": true
+                },
+                {
+                  "key": "modifiedBefore",
+                  "value": "2019-11-18T21:20:05.354Z",
+                  "disabled": true
+                },
+                {
+                  "key": "cursor",
+                  "value": "{c}",
+                  "disabled": true
+                },
+                {
+                  "key": "customerEmail",
+                  "value": "{{customerEmail}}",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DNU-Retrieve specific transactions by email",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "const documents = response.documents || [];\r",
+                  "\r",
+                  "let searchEmail = '';\r",
+                  "try {\r",
+                  "  const url = new URL(pm.request.url.toString());\r",
+                  "  searchEmail = decodeURIComponent(url.searchParams.get('customerEmail') || '').toLowerCase().trim();\r",
+                  "} catch (e) {\r",
+                  "  console.log(\"❌ URL parsing error:\", e);\r",
+                  "}\r",
+                  "\r",
+                  "console.log(\"🔍 Looking for email:\", searchEmail);\r",
+                  "\r",
+                  "// Find matching document by email\r",
+                  "const matched = documents.find(doc =>\r",
+                  "  doc.customerEmail?.toLowerCase().trim() === searchEmail\r",
+                  ");\r",
+                  "\r",
+                  "if (matched) {\r",
+                  "  console.log(\"✅ Matched Document Found:\", matched);\r",
+                  "  pm.collectionVariables.set(\"matchedTransactionId\", matched.id);\r",
+                  "  pm.collectionVariables.set(\"matchedSalesOrderId\", matched.salesOrderId);\r",
+                  "  pm.collectionVariables.set(\"matchedCustomerEmail\", matched.customerEmail);\r",
+                  "  pm.collectionVariables.set(\"matchedTransDocument\", JSON.stringify(matched, null, 2));\r",
+                  "} else {\r",
+                  "  console.log(\"❌ No match found for:\", searchEmail);\r",
+                  "  [\"matchedTransactionId\", \"matchedSalesOrderId\", \"matchedCustomerEmail\", \"matchedTransDocument\"]\r",
+                  "    .forEach(key => pm.collectionVariables.unset(key));\r",
+                  "}\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.squarespace.com/1.0/commerce/transactions?customerEmail={{customerEmail}}",
+              "protocol": "https",
+              "host": [
+                "api",
+                "squarespace",
+                "com"
+              ],
+              "path": [
+                "1.0",
+                "commerce",
+                "transactions"
+              ],
+              "query": [
+                {
+                  "key": "customerEmail",
+                  "value": "{{customerEmail}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Retrieve specific transactions id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.squarespace.com/1.0/commerce/transactions/{{matchedTransactionId}}",
+              "protocol": "https",
+              "host": [
+                "api",
+                "squarespace",
+                "com"
+              ],
+              "path": [
+                "1.0",
+                "commerce",
+                "transactions",
+                "{{matchedTransactionId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Retrieve basic site information",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.squarespace.com/1.0/authorization/website",
+          "protocol": "https",
+          "host": [
+            "api",
+            "squarespace",
+            "com"
+          ],
+          "path": [
+            "1.0",
+            "authorization",
+            "website"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "access_token",
+      "value": "8823593e-01b0-4472-90af-d3366be4ec36",
+      "type": "string"
+    },
+    {
+      "key": "matchedTransactionId",
+      "value": ""
+    },
+    {
+      "key": "matchedSalesOrderId",
+      "value": ""
+    },
+    {
+      "key": "matchedCustomerEmail",
+      "value": ""
+    },
+    {
+      "key": "matchedTransDocument",
+      "value": ""
+    }
+  ]
+}
