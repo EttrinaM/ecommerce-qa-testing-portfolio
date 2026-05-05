@@ -39,15 +39,15 @@ A usability-related defect was identified in checkout field validation and docum
 ## Screenshots
 
 ### Login Page
-![Login Page](screenshots/login-page.png)
+![Login Page](screenshots/login-page.jpeg)
 
 ### Products Page
-![Products Page](screenshots/products-page.png)
+![Products Page](screenshots/products-page.jpeg)
 
 ### Cart Page
-![Cart Page](screenshots/cart-page.png)
+![Cart Page](screenshots/cart-page.jpeg)
 
 ### Order Confirmation
-![Order Confirmation](screenshots/order-confirmation.png)
+![Order Confirmation](screenshots/order-confirmation.jpeg)
 ## Goal
 To simulate real-world QA testing experience and demonstrate testing workflow.
